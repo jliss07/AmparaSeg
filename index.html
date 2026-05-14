@@ -1,0 +1,1231 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AmparaSeg - Corretora de Seguros</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20viewBox%3D%270%200%2064%2064%27%3E%3Cpath%20fill%3D%27%232c967e%27%20d%3D%27M32%204%20L54%2012%20V30%20C54%2044%2044%2056%2032%2060%20C20%2056%2010%2044%2010%2030%20V12%20Z%27/%3E%3Cpath%20fill%3D%27%23ffffff%27%20d%3D%27M32%2047%20s-15-9.35-15-20.25%20C17%2020.4%2021.4%2016%2026.75%2016%20c2.9%200%205.6%201.4%207.25%203.6%20C35.65%2017.4%2038.35%2016%2041.25%2016%20C46.6%2016%2051%2020.4%2051%2026.75%20C51%2037.65%2036%2047%2032%2047%20z%27/%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Montserrat', Arial, sans-serif;
+      color: #08394a;
+      background: #f4f8f8;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .page {
+      width: 100%;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Header */
+    .header {
+      min-height: 72px;
+      background: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 54px;
+      box-shadow: 0 2px 16px rgba(0, 0, 0, 0.05);
+      position: relative;
+      z-index: 10;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-logo-wrap {
+      width: 210px;
+      height: 56px;
+      overflow: hidden;
+      display: block;
+    }
+
+    .brand-logo-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transform: scale(1.15);
+      transform-origin: center;
+      filter: drop-shadow(0 12px 22px rgba(0,0,0,0.12));
+    }
+
+    .brand-text h1 {
+      font-size: 27px;
+      line-height: 26px;
+      font-weight: 800;
+      color: #08394a;
+    }
+
+    .brand-text span {
+      display: block;
+      font-size: 12px;
+      font-weight: 600;
+      color: #42a88e;
+      margin-top: 2px;
+    }
+
+    .brand-text small {
+      display: block;
+      color: #08394a;
+      font-size: 9px;
+      margin-top: 2px;
+      letter-spacing: .2px;
+    }
+
+    .nav {
+      display: flex;
+      gap: 34px;
+      font-size: 14px;
+      font-weight: 700;
+      color: #0b3547;
+      align-items: center;
+    }
+
+    .nav a:first-child {
+      color: #2fa78d;
+    }
+
+    section { scroll-margin-top: 100px; }
+
+    .mobile-nav {
+      display: none;
+      position: relative;
+    }
+
+    .menu-toggle {
+      list-style: none;
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      border: 1px solid rgba(8, 57, 74, 0.14);
+      background: #ffffff;
+      color: #08394a;
+      display: grid;
+      place-items: center;
+      font-size: 18px;
+      font-weight: 900;
+      box-shadow: 0 10px 18px rgba(0, 0, 0, 0.05);
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .menu-toggle::-webkit-details-marker { display: none; }
+
+    .mobile-nav-panel {
+      position: absolute;
+      right: 0;
+      top: calc(100% + 10px);
+      width: min(320px, calc(100vw - 36px));
+      background: #ffffff;
+      border: 1px solid rgba(8, 57, 74, 0.10);
+      border-radius: 14px;
+      box-shadow: 0 18px 44px rgba(0, 0, 0, 0.12);
+      overflow: hidden;
+      display: grid;
+    }
+
+    .mobile-nav-panel a {
+      padding: 14px 16px;
+      font-size: 14px;
+      font-weight: 800;
+      color: #08394a;
+      border-bottom: 1px solid rgba(8, 57, 74, 0.08);
+    }
+
+    .mobile-nav-panel a:last-child { border-bottom: none; }
+
+    .mobile-nav-panel .mobile-cta {
+      background: #2c967e;
+      color: #ffffff;
+      border-bottom: none;
+    }
+
+    .whatsapp-btn,
+    .primary-btn,
+    .small-cta {
+      background: #2c967e;
+      color: white;
+      border-radius: 12px;
+      border: 0;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      box-shadow: 0 8px 18px rgba(44, 150, 126, .18);
+    }
+
+    .wpp-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+    }
+
+    .wpp-icon {
+      width: 16px;
+      height: 16px;
+      display: block;
+      fill: currentColor;
+    }
+
+    .whatsapp-btn {
+      height: 42px;
+      padding: 0 18px;
+      font-size: 13px;
+    }
+
+    .primary-btn {
+      height: 58px;
+      padding: 0 34px;
+      font-size: 18px;
+      border-radius: 14px;
+      margin-top: 30px;
+    }
+
+    .float-quote {
+      position: fixed;
+      right: 18px;
+      bottom: 90px;
+      height: 46px;
+      padding: 0 18px;
+      background: #2c967e;
+      color: #ffffff;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 900;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.18);
+      z-index: 60;
+    }
+
+    .float-wpp {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      width: 56px;
+      height: 56px;
+      border-radius: 18px;
+      background: #2c967e;
+      color: #ffffff;
+      display: grid;
+      place-items: center;
+      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.18);
+      z-index: 60;
+    }
+
+    .float-wpp svg {
+      width: 26px;
+      height: 26px;
+      display: block;
+      fill: currentColor;
+    }
+
+    /* Hero */
+    .hero {
+      min-height: 562px;
+      background: url('imagem/Seguro-Familia.jpg') center right / cover no-repeat;
+      position: relative;
+      padding: 0 0 120px 57px;
+      display: flex;
+      align-items: center;
+    }
+
+    .hero-content {
+      max-width: 600px;
+      padding-top: 15px;
+      padding-bottom: 110px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .eyebrow {
+      color: #2a9b84;
+      font-size: 14px;
+      letter-spacing: 8px;
+      font-weight: 700;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin-bottom: 28px;
+    }
+
+    .eyebrow::after {
+      content: '';
+      display: block;
+      width: 230px;
+      height: 1px;
+      background: #d4dedf;
+    }
+
+    .hero h2 {
+      font-size: 55px;
+      line-height: 1.08;
+      letter-spacing: -1.6px;
+      color: #06384b;
+      margin-bottom: 24px;
+      font-weight: 800;
+    }
+
+    .hero h2 span {
+      display: block;
+      color: #2e9a83;
+    }
+
+    .hero p {
+      font-size: 18px;
+      line-height: 1.65;
+      color: #17394a;
+      max-width: 490px;
+      font-weight: 500;
+    }
+
+    .features {
+      display: flex;
+      position: absolute;
+      bottom: 25px;
+      left: 57px;
+      background: rgba(255,255,255,.82);
+      border-radius: 12px;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .feature {
+      width: 170px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 15px 22px;
+      border-right: 1px solid #ccd8da;
+      font-size: 12px;
+      font-weight: 800;
+      color: #0a3548;
+    }
+
+    .feature:last-child { border-right: none; }
+
+    .icon-line {
+      width: 28px;
+      height: 28px;
+      border: 3px solid #2a8e7b;
+      border-radius: 9px;
+      position: relative;
+      flex: 0 0 auto;
+    }
+
+    .icon-line::after {
+      content: '✓';
+      position: absolute;
+      inset: -5px 0 0 6px;
+      color: #2a8e7b;
+      font-weight: 900;
+      font-size: 17px;
+    }
+
+    /* Services */
+    .services {
+      padding: 36px 66px 48px;
+      background: #f4f8f8;
+      text-align: center;
+    }
+
+    .section-kicker {
+      font-size: 11px;
+      letter-spacing: 7px;
+      color: #2d987f;
+      text-transform: uppercase;
+      font-weight: 800;
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-size: 35px;
+      line-height: 1.15;
+      color: #06384b;
+      font-weight: 800;
+      margin-bottom: 25px;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 20px;
+      max-width: 1210px;
+      margin: 0 auto;
+    }
+
+    .card {
+      min-height: 238px;
+      background: white;
+      border-radius: 13px;
+      box-shadow: 0 12px 28px rgba(18, 70, 79, .10);
+      padding: 28px 24px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .card .big-icon {
+      font-size: 45px;
+      color: #2e9a83;
+      line-height: 1;
+    }
+
+    .card-media {
+      width: 78px;
+      height: 78px;
+      border-radius: 18px;
+      object-fit: cover;
+      box-shadow: 0 12px 24px rgba(2, 6, 23, 0.12);
+    }
+
+    .card-media-right {
+      object-position: 80% center;
+    }
+
+    .card h3 {
+      font-size: 16px;
+      color: #08394a;
+      margin-top: 10px;
+      font-weight: 800;
+    }
+
+    .card p {
+      font-size: 12px;
+      line-height: 1.55;
+      color: #314d59;
+      margin: 12px 0 16px;
+      font-weight: 500;
+    }
+
+    .card a {
+      color: #2d987f;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .all-btn {
+      width: 235px;
+      height: 37px;
+      border-radius: 18px;
+      background: #006178;
+      color: white;
+      border: 0;
+      margin-top: -5px;
+      font-weight: 800;
+      font-size: 13px;
+      position: relative;
+      z-index: 3;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Cotação */
+    .cotacao {
+      padding: 56px 66px 66px;
+      background: #ffffff;
+    }
+
+    .cotacao-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 26px;
+      max-width: 1210px;
+      margin: 0 auto;
+      align-items: start;
+    }
+
+    .cotacao-info,
+    .cotacao-form {
+      background: #f4f8f8;
+      border-radius: 14px;
+      box-shadow: 0 12px 28px rgba(18, 70, 79, .10);
+      padding: 28px 26px;
+      border: 1px solid rgba(8, 57, 74, 0.08);
+    }
+
+    .cotacao-info h3,
+    .cotacao-form h3 {
+      font-size: 18px;
+      color: #08394a;
+      font-weight: 800;
+      margin-bottom: 10px;
+    }
+
+    .cotacao-info p,
+    .cotacao-form p {
+      font-size: 13px;
+      line-height: 1.6;
+      color: #314d59;
+      font-weight: 500;
+    }
+
+    .cotacao-list {
+      margin-top: 14px;
+      display: grid;
+      gap: 10px;
+    }
+
+    .cotacao-list li {
+      list-style: none;
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      font-size: 13px;
+      color: #0a3548;
+      font-weight: 700;
+    }
+
+    .cotacao-list li::before {
+      content: "✓";
+      width: 22px;
+      height: 22px;
+      border-radius: 8px;
+      background: rgba(44, 150, 126, .12);
+      border: 1px solid rgba(44, 150, 126, .25);
+      color: #2c967e;
+      display: grid;
+      place-items: center;
+      font-weight: 900;
+      flex: 0 0 22px;
+      margin-top: 1px;
+    }
+
+    .form-grid {
+      margin-top: 14px;
+      display: grid;
+      gap: 12px;
+    }
+
+    .form-grid label {
+      display: grid;
+      gap: 6px;
+      font-size: 12px;
+      font-weight: 800;
+      color: #08394a;
+    }
+
+    .form-grid input,
+    .form-grid select,
+    .form-grid textarea {
+      width: 100%;
+      border: 1px solid rgba(8, 57, 74, 0.14);
+      border-radius: 12px;
+      padding: 12px 12px;
+      font-family: inherit;
+      font-size: 14px;
+      outline: none;
+      background: #ffffff;
+      color: #08394a;
+    }
+
+    .form-grid textarea { min-height: 98px; resize: vertical; }
+
+    .form-helper {
+      font-size: 12px;
+      color: #425d66;
+      font-weight: 600;
+      margin-top: 10px;
+    }
+
+    .submit-btn {
+      height: 48px;
+      border-radius: 12px;
+      background: #2c967e;
+      color: #ffffff;
+      border: 0;
+      font-weight: 900;
+      font-size: 14px;
+      box-shadow: 0 10px 22px rgba(44, 150, 126, .22);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    /* Contato */
+    .contact {
+      background: #f4f8f8;
+      padding: 56px 66px 64px;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 26px;
+      max-width: 1210px;
+      margin: 0 auto;
+      align-items: start;
+    }
+
+    .contact-card {
+      background: #ffffff;
+      border-radius: 14px;
+      box-shadow: 0 12px 28px rgba(18, 70, 79, .10);
+      padding: 26px 24px;
+      border: 1px solid rgba(8, 57, 74, 0.08);
+    }
+
+    .contact-item {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      padding: 14px 14px;
+      border-radius: 14px;
+      background: #ffffff;
+      border: 1px solid rgba(8, 57, 74, 0.08);
+      box-shadow: 0 10px 24px rgba(2, 6, 23, 0.06);
+    }
+
+    .contact-item + .contact-item { margin-top: 12px; }
+
+    .contact-badge {
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      background: rgba(44, 150, 126, .12);
+      border: 1px solid rgba(44, 150, 126, .25);
+      display: grid;
+      place-items: center;
+      font-weight: 900;
+      color: #2c967e;
+      flex: 0 0 44px;
+    }
+
+    .contact-item strong {
+      display: block;
+      font-size: 14px;
+      font-weight: 900;
+      color: #08394a;
+      margin-bottom: 3px;
+    }
+
+    .contact-item span {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: #314d59;
+      line-height: 1.45;
+      word-break: break-word;
+    }
+
+    /* About */
+    .about {
+      display: grid;
+      grid-template-columns: 1fr 1.13fr;
+      background: white;
+    }
+
+    .about-img {
+      min-height: 308px;
+      background: url('https://images.unsplash.com/photo-1573497491208-6b1acb260507?auto=format&fit=crop&w=900&q=80') center / cover no-repeat;
+    }
+
+    .about-content {
+      padding: 42px 65px 30px 50px;
+    }
+
+    .about-content .section-kicker {
+      margin-bottom: 8px;
+      text-align: left;
+    }
+
+    .about h2 {
+      font-size: 33px;
+      line-height: 1.08;
+      color: #07384b;
+      font-weight: 800;
+      max-width: 560px;
+      margin-bottom: 16px;
+    }
+
+    .about p {
+      font-size: 15px;
+      line-height: 1.55;
+      color: #17394a;
+      max-width: 600px;
+      font-weight: 500;
+    }
+
+    /* Insurers */
+    .insurers {
+      background: #ffffff;
+      color: #08394a;
+      padding: 30px 70px 34px;
+      text-align: center;
+      border-top: 1px solid rgba(8, 57, 74, 0.08);
+      border-bottom: 1px solid rgba(8, 57, 74, 0.08);
+    }
+
+    .insurers h4 {
+      font-size: 11px;
+      letter-spacing: 7px;
+      font-weight: 800;
+      color: #2d987f;
+      margin-bottom: 24px;
+    }
+
+    .insurers-carousel {
+      position: relative;
+      overflow: hidden;
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 10px 0;
+      mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+      -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+    }
+
+    .insurers-track {
+      display: flex;
+      align-items: center;
+      gap: 44px;
+      width: max-content;
+      animation: insurers-scroll 30s linear infinite;
+    }
+
+    .insurer-logo {
+      height: 44px;
+      width: auto;
+      object-fit: contain;
+      filter: grayscale(0.05) contrast(1.06);
+      opacity: 0.92;
+    }
+
+    .insurer-logo:hover { opacity: 1; }
+
+    @keyframes insurers-scroll {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .insurers-track { animation: none; }
+    }
+
+    /* Footer */
+    .footer {
+      background: #003b50;
+      color: white;
+      padding: 34px 65px 18px;
+    }
+
+    .footer-logo-wrap {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255,255,255,.94);
+      border-radius: 14px;
+      width: 210px;
+      height: 56px;
+      padding: 0;
+      overflow: hidden;
+      box-shadow: 0 12px 26px rgba(0,0,0,.18);
+    }
+
+    .footer-logo-img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.8fr 1fr 1fr 1.25fr 1.4fr;
+      gap: 34px;
+      max-width: 1210px;
+      margin: 0 auto;
+    }
+
+    .footer .brand-text h1,
+    .footer .brand-text small { color: white; }
+
+    .footer p {
+      font-size: 12px;
+      line-height: 1.7;
+      color: #d5e7e8;
+      margin: 18px 0;
+      max-width: 250px;
+    }
+
+    .socials {
+      display: flex;
+      gap: 18px;
+      font-weight: 800;
+    }
+
+    .footer-col {
+      border-left: 1px solid rgba(255,255,255,.14);
+      padding-left: 28px;
+    }
+
+    .footer h4 {
+      color: #d9eeee;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      margin-bottom: 18px;
+      font-weight: 800;
+    }
+
+    .footer li {
+      list-style: none;
+      color: #d7e5e6;
+      font-size: 12px;
+      margin-bottom: 9px;
+      font-weight: 500;
+    }
+
+    .footer .small-cta {
+      height: 48px;
+      padding: 0 22px;
+      margin-top: 14px;
+      border-radius: 10px;
+      font-size: 13px;
+    }
+
+    .copyright {
+      border-top: 1px solid rgba(255,255,255,.12);
+      text-align: center;
+      margin-top: 30px;
+      padding-top: 17px;
+      color: #c8dddf;
+      font-size: 11px;
+    }
+
+    @media (max-width: 1200px) {
+      .header { padding: 0 28px; }
+      .services { padding: 34px 28px 46px; }
+      .cards { grid-template-columns: repeat(3, 1fr); }
+      .insurers { padding: 28px 28px 30px; }
+      .footer { padding: 34px 28px 18px; }
+      .footer-grid { grid-template-columns: 1.6fr 1fr 1fr; }
+      .footer-col { border-left: none; padding-left: 0; }
+    }
+
+    @media (max-width: 980px) {
+      .header { padding: 12px 18px; gap: 14px; }
+      .brand-text h1 { font-size: 22px; line-height: 22px; }
+      .brand-logo-wrap { width: 190px; height: 52px; }
+      .brand-logo-img { transform: scale(1.16); }
+      .nav { display: none; }
+      .whatsapp-btn { display: none; }
+      .mobile-nav { display: block; }
+
+      .hero { min-height: 540px; padding: 42px 18px 0; align-items: flex-start; background: url('imagem/Seguro-Familia.jpg') center / cover no-repeat; }
+      .hero-content { padding-top: 0; }
+      .eyebrow { font-size: 12px; letter-spacing: 6px; margin-bottom: 18px; }
+      .eyebrow::after { width: 150px; }
+      .hero h2 { font-size: 40px; }
+      .hero p { font-size: 16px; }
+
+      .features { position: static; margin-top: 24px; left: auto; bottom: auto; background: transparent; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+      .feature { width: auto; border-right: none; border: 1px solid #dbe7e8; border-radius: 12px; background: rgba(255,255,255,.86); }
+
+      .cards { grid-template-columns: repeat(2, 1fr); }
+      .cotacao { padding: 46px 18px 56px; }
+      .cotacao-grid { grid-template-columns: 1fr; }
+      .contact { padding: 46px 18px 56px; }
+      .contact-grid { grid-template-columns: 1fr; }
+      .about { grid-template-columns: 1fr; }
+      .about-content { padding: 32px 18px 26px; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .footer p { max-width: none; }
+    }
+
+
+    @media (max-width: 560px) {
+      .header { padding: 10px 14px; }
+      .brand-text span { font-size: 11px; }
+      .brand-text small { display: none; }
+      .header { min-height: 68px; }
+      .brand-logo-wrap { width: 164px; height: 44px; }
+      .brand-logo-img { transform: scale(1.14); }
+
+      .hero { min-height: 520px; }
+      .hero h2 { font-size: 34px; }
+      .primary-btn { width: 100%; padding: 0 18px; font-size: 16px; }
+
+      .features { grid-template-columns: 1fr; }
+      .feature { padding: 14px 16px; }
+
+      .services { padding: 28px 14px 40px; }
+      .section-title { font-size: 28px; }
+      .cards { grid-template-columns: 1fr; }
+      .all-btn { width: 100%; }
+      .cotacao { padding: 40px 14px 50px; }
+      .contact { padding: 40px 14px 50px; }
+      .insurers { padding: 24px 14px 28px; }
+      .insurer-logo { height: 38px; }
+
+      .float-quote { right: 14px; bottom: 84px; height: 44px; padding: 0 14px; font-size: 12px; }
+      .float-wpp { right: 14px; bottom: 14px; width: 54px; height: 54px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="header">
+      <a class="brand" href="#inicio" aria-label="AmparaSeg - Início">
+        <span class="brand-logo-wrap">
+          <img class="brand-logo-img" src="imagem/AmparaSeg_idvisual_atual-2026-removebg-preview.png" alt="AmparaSeg">
+        </span>
+      </a>
+
+      <nav class="nav">
+        <a href="#inicio">Início</a>
+        <a href="#seguros">Seguros</a>
+        <a href="#seguros">Empresas</a>
+        <a href="#cotacao">Cotação</a>
+        <a href="#sobre">Sobre Nós</a>
+        <a href="#contato">Contato</a>
+      </nav>
+
+      <a class="whatsapp-btn wpp-link" target="_blank" rel="noopener" href="https://wa.me/558881155384?text=Olá,%20gostaria%20de%20fazer%20uma%20cotação%20de%20seguro."><svg class="wpp-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2a9.96 9.96 0 0 0-8.49 15.18L2.5 21.5l4.46-1.17A9.96 9.96 0 1 0 12 2Zm0 18.2c-1.55 0-3.06-.41-4.38-1.18l-.33-.2-2.65.7.7-2.56-.22-.35A8.2 8.2 0 1 1 12 20.2Zm4.77-5.7c-.2.56-1.18 1.08-1.62 1.15-.41.07-.93.1-1.5-.09-.35-.11-.79-.25-1.36-.5-2.4-1.03-3.95-3.42-4.07-3.58-.12-.16-.97-1.3-.97-2.48 0-1.18.62-1.76.84-2 .22-.24.48-.3.65-.3h.47c.15 0 .35-.05.55.42.2.48.67 1.65.73 1.77.06.12.1.25.02.41-.08.16-.12.25-.24.39-.12.13-.26.3-.37.41-.12.12-.24.24-.1.47.14.24.63 1.03 1.35 1.67.93.83 1.71 1.08 1.95 1.2.24.12.38.1.52-.06.14-.16.6-.7.76-.94.16-.24.32-.2.54-.12.22.08 1.39.66 1.63.77.24.12.4.18.45.28.06.1.06.58-.14 1.14Z"/></svg>Fale no WhatsApp</a>
+
+      <details class="mobile-nav">
+        <summary class="menu-toggle" aria-label="Abrir menu">☰</summary>
+        <div class="mobile-nav-panel">
+          <a href="#inicio">Início</a>
+          <a href="#seguros">Seguros</a>
+          <a href="#seguros">Empresas</a>
+          <a href="#cotacao">Cotação</a>
+          <a href="#sobre">Sobre Nós</a>
+          <a href="#contato">Contato</a>
+          <a class="mobile-cta wpp-link" target="_blank" rel="noopener" href="https://wa.me/558881155384?text=Olá,%20gostaria%20de%20fazer%20uma%20cotação%20de%20seguro."><svg class="wpp-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2a9.96 9.96 0 0 0-8.49 15.18L2.5 21.5l4.46-1.17A9.96 9.96 0 1 0 12 2Zm0 18.2c-1.55 0-3.06-.41-4.38-1.18l-.33-.2-2.65.7.7-2.56-.22-.35A8.2 8.2 0 1 1 12 20.2Zm4.77-5.7c-.2.56-1.18 1.08-1.62 1.15-.41.07-.93.1-1.5-.09-.35-.11-.79-.25-1.36-.5-2.4-1.03-3.95-3.42-4.07-3.58-.12-.16-.97-1.3-.97-2.48 0-1.18.62-1.76.84-2 .22-.24.48-.3.65-.3h.47c.15 0 .35-.05.55.42.2.48.67 1.65.73 1.77.06.12.1.25.02.41-.08.16-.12.25-.24.39-.12.13-.26.3-.37.41-.12.12-.24.24-.1.47.14.24.63 1.03 1.35 1.67.93.83 1.71 1.08 1.95 1.2.24.12.38.1.52-.06.14-.16.6-.7.76-.94.16-.24.32-.2.54-.12.22.08 1.39.66 1.63.77.24.12.4.18.45.28.06.1.06.58-.14 1.14Z"/></svg>Fale no WhatsApp</a>
+        </div>
+      </details>
+    </header>
+
+    <section class="hero" id="inicio">
+      <div class="hero-content">
+        <div class="eyebrow">Corretora de Seguros</div>
+        <h2>Seguro que acolhe.<span>Proteção que resolve.</span></h2>
+        <p>Na AmparaSeg, você encontra os melhores seguros para o que realmente importa: você, sua família e seu patrimônio.</p>
+        <a class="primary-btn wpp-link" href="#cotacao"><svg class="wpp-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2a9.96 9.96 0 0 0-8.49 15.18L2.5 21.5l4.46-1.17A9.96 9.96 0 1 0 12 2Zm0 18.2c-1.55 0-3.06-.41-4.38-1.18l-.33-.2-2.65.7.7-2.56-.22-.35A8.2 8.2 0 1 1 12 20.2Zm4.77-5.7c-.2.56-1.18 1.08-1.62 1.15-.41.07-.93.1-1.5-.09-.35-.11-.79-.25-1.36-.5-2.4-1.03-3.95-3.42-4.07-3.58-.12-.16-.97-1.3-.97-2.48 0-1.18.62-1.76.84-2 .22-.24.48-.3.65-.3h.47c.15 0 .35-.05.55.42.2.48.67 1.65.73 1.77.06.12.1.25.02.41-.08.16-.12.25-.24.39-.12.13-.26.3-.37.41-.12.12-.24.24-.1.47.14.24.63 1.03 1.35 1.67.93.83 1.71 1.08 1.95 1.2.24.12.38.1.52-.06.14-.16.6-.7.76-.94.16-.24.32-.2.54-.12.22.08 1.39.66 1.63.77.24.12.4.18.45.28.06.1.06.58-.14 1.14Z"/></svg>Solicitar Cotação</a>
+      </div>
+
+      <div class="features">
+        <div class="feature"><span class="icon-line"></span>Atendimento<br>Humanizado</div>
+        <div class="feature"><span class="icon-line"></span>Soluções<br>Personalizadas</div>
+        <div class="feature"><span class="icon-line"></span>As Melhores<br>Seguradoras</div>
+      </div>
+    </section>
+
+    <section class="services" id="seguros">
+      <div class="section-kicker">Soluções adequadas para você</div>
+      <h2 class="section-title">Seguros para todas as fases da vida</h2>
+
+      <div class="cards">
+        <article class="card">
+          <img class="card-media" src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=400&q=80" alt="Seguro Auto">
+          <h3>Seguro Auto</h3>
+          <p>Proteção completa para seu veículo com assistência 24h e diversos benefícios.</p>
+          <a href="seguros/auto.html">Saiba mais ›</a>
+        </article>
+        <article class="card">
+          <img class="card-media" src="https://images.unsplash.com/photo-1568605114967-8130f3a36994?auto=format&fit=crop&w=400&q=80" alt="Seguro Residencial">
+          <h3>Seguro Residencial</h3>
+          <p>Tranquilidade para você e sua família. Proteção para sua casa e seus bens.</p>
+          <a href="seguros/residencial.html">Saiba mais ›</a>
+        </article>
+        <article class="card">
+          <img class="card-media card-media-right" src="https://www.mutuus.net/blog/wp-content/uploads/seguro-saude-coberturas-e-vantagens.jpg" alt="Seguro Saúde">
+          <h3>Seguro Saúde</h3>
+          <p>Mais que um seguro, cuidado com a saúde de quem você ama.</p>
+          <a href="seguros/saude.html">Saiba mais ›</a>
+        </article>
+        <article class="card">
+          <img class="card-media" src="https://images.unsplash.com/photo-1504151932400-72d4384f04b3?auto=format&fit=crop&w=400&q=80" alt="Seguro de Vida">
+          <h3>Seguro de Vida</h3>
+          <p>Proteção financeira para sua família hoje e amanhã.</p>
+          <a href="seguros/vida.html">Saiba mais ›</a>
+        </article>
+        <article class="card">
+          <img class="card-media" src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=400&q=80" alt="Seguro Empresarial">
+          <h3>Seguro Empresarial</h3>
+          <p>Soluções completas para proteger sua empresa, negócio e colaboradores.</p>
+          <a href="seguros/empresarial.html">Saiba mais ›</a>
+        </article>
+        <article class="card">
+          <img class="card-media" src="https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=400&q=80" alt="Seguro Garantia">
+          <h3>Seguro Garantia</h3>
+          <p>Mais segurança para contratos e obrigações, com suporte em todas as etapas.</p>
+          <a href="seguros/garantia.html">Saiba mais ›</a>
+        </article>
+        <article class="card">
+          <img class="card-media" src="https://images.unsplash.com/photo-1526772662000-3f88f10405ff?auto=format&fit=crop&w=400&q=80" alt="Seguro Viagem">
+          <h3>Seguro Viagem</h3>
+          <p>Viaje com tranquilidade com assistência e suporte para imprevistos fora de casa.</p>
+          <a href="seguros/viagem.html">Saiba mais ›</a>
+        </article>
+      </div>
+    </section>
+
+    <section class="cotacao" id="cotacao">
+      <div class="section-kicker">Cotação online</div>
+      <h2 class="section-title">Solicite uma cotação pelo WhatsApp</h2>
+
+      <div class="cotacao-grid">
+        <div class="cotacao-info">
+          <h3>Atendimento rápido e consultivo</h3>
+          <p>Envie seus dados e receba opções com explicação clara de coberturas, franquias e diferenças entre seguradoras.</p>
+          <ul class="cotacao-list">
+            <li>Comparação entre seguradoras e coberturas</li>
+            <li>Agilidade na cotação e acompanhamento do início ao fim</li>
+            <li>Suporte no sinistro e renovação</li>
+          </ul>
+          <div class="form-helper">Ao enviar, você será direcionado para o WhatsApp com a mensagem pronta.</div>
+        </div>
+
+        <div class="cotacao-form">
+          <h3>Formulário de cotação</h3>
+          <p>Preencha o essencial e envie.</p>
+          <form class="form-grid" id="quoteForm">
+            <label>
+              Nome
+              <input id="qNome" name="nome" autocomplete="name" placeholder="Seu nome" required>
+            </label>
+            <label>
+              WhatsApp
+              <input id="qWhats" name="whats" inputmode="tel" autocomplete="tel" placeholder="(DDD) 00000-0000" required>
+            </label>
+            <label>
+              Tipo de seguro
+              <select id="qTipo" name="tipo" required>
+                <option value="" selected disabled>Selecione</option>
+                <option>Auto</option>
+                <option>Residencial</option>
+                <option>Vida</option>
+                <option>Saúde</option>
+                <option>Empresarial</option>
+                <option>Transporte</option>
+                <option>Garantia</option>
+                <option>Viagem</option>
+                <option>Outros</option>
+              </select>
+            </label>
+            <label>
+              Detalhes (opcional)
+              <textarea id="qMsg" name="mensagem" placeholder="Ex.: ano/modelo, cidade, perfil, necessidades, etc."></textarea>
+            </label>
+            <button class="submit-btn" type="submit"><svg class="wpp-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2a9.96 9.96 0 0 0-8.49 15.18L2.5 21.5l4.46-1.17A9.96 9.96 0 1 0 12 2Zm0 18.2c-1.55 0-3.06-.41-4.38-1.18l-.33-.2-2.65.7.7-2.56-.22-.35A8.2 8.2 0 1 1 12 20.2Zm4.77-5.7c-.2.56-1.18 1.08-1.62 1.15-.41.07-.93.1-1.5-.09-.35-.11-.79-.25-1.36-.5-2.4-1.03-3.95-3.42-4.07-3.58-.12-.16-.97-1.3-.97-2.48 0-1.18.62-1.76.84-2 .22-.24.48-.3.65-.3h.47c.15 0 .35-.05.55.42.2.48.67 1.65.73 1.77.06.12.1.25.02.41-.08.16-.12.25-.24.39-.12.13-.26.3-.37.41-.12.12-.24.24-.1.47.14.24.63 1.03 1.35 1.67.93.83 1.71 1.08 1.95 1.2.24.12.38.1.52-.06.14-.16.6-.7.76-.94.16-.24.32-.2.54-.12.22.08 1.39.66 1.63.77.24.12.4.18.45.28.06.1.06.58-.14 1.14Z"/></svg>Enviar no WhatsApp</button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <section class="about" id="sobre">
+      <div class="about-img"></div>
+      <div class="about-content">
+        <div class="section-kicker">Quem somos</div>
+        <h2>Cuidado, confiança e compromisso com você</h2>
+        <p>Mais que uma corretora, somos parceiros para proteger o que mais importa. Trabalhamos com as melhores seguradoras do mercado para oferecer soluções personalizadas, atendimento próximo e suporte em todas as etapas.</p>
+      </div>
+    </section>
+
+    <section class="insurers">
+      <h4>Trabalhamos com as melhores seguradoras</h4>
+      <div class="insurers-carousel" aria-label="Seguradoras parceiras">
+        <div class="insurers-track" aria-hidden="true">
+          <img class="insurer-logo" src="imagem/Porto_2022.svg.png" alt="">
+          <img class="insurer-logo" src="imagem/bradesco-seguros-logo-3-1.png" alt="">
+          <img class="insurer-logo" src="imagem/Logo_Sul_América_2015.jpg" alt="">
+          <img class="insurer-logo" src="imagem/Itau-Seguros-Logo-Vector.svg-.png" alt="">
+          <img class="insurer-logo" src="imagem/Allianz.png" alt="">
+          <img class="insurer-logo" src="imagem/hdi-seguros.png" alt="">
+          <img class="insurer-logo" src="imagem/mapfre.jpg" alt="">
+          <img class="insurer-logo" src="imagem/TOKIO-MARINE.jpg" alt="">
+          <img class="insurer-logo" src="imagem/azul.png" alt="">
+          <img class="insurer-logo" src="imagem/SUHAI-SEGURADORA-LOGO-1.png" alt="">
+          <img class="insurer-logo" src="imagem/darwin.png" alt="">
+          <img class="insurer-logo" src="imagem/Yelum.png" alt="">
+          <img class="insurer-logo" src="imagem/aliro-seguro.png" alt="">
+
+          <img class="insurer-logo" src="imagem/Porto_2022.svg.png" alt="">
+          <img class="insurer-logo" src="imagem/bradesco-seguros-logo-3-1.png" alt="">
+          <img class="insurer-logo" src="imagem/Logo_Sul_América_2015.jpg" alt="">
+          <img class="insurer-logo" src="imagem/Itau-Seguros-Logo-Vector.svg-.png" alt="">
+          <img class="insurer-logo" src="imagem/Allianz.png" alt="">
+          <img class="insurer-logo" src="imagem/hdi-seguros.png" alt="">
+          <img class="insurer-logo" src="imagem/mapfre.jpg" alt="">
+          <img class="insurer-logo" src="imagem/TOKIO-MARINE.jpg" alt="">
+          <img class="insurer-logo" src="imagem/azul.png" alt="">
+          <img class="insurer-logo" src="imagem/SUHAI-SEGURADORA-LOGO-1.png" alt="">
+          <img class="insurer-logo" src="imagem/darwin.png" alt="">
+          <img class="insurer-logo" src="imagem/Yelum.png" alt="">
+          <img class="insurer-logo" src="imagem/aliro-seguro.png" alt="">
+        </div>
+      </div>
+    </section>
+
+    <section class="contact" id="contato">
+      <div class="section-kicker">Contato</div>
+      <h2 class="section-title">Vamos conversar</h2>
+
+      <div class="contact-grid">
+        <div class="contact-card">
+          <div class="contact-item">
+            <div class="contact-badge">☏</div>
+            <div>
+              <strong>WhatsApp</strong>
+              <span><a class="wpp-link" target="_blank" rel="noopener" href="https://wa.me/558881155384?text=Olá,%20gostaria%20de%20fazer%20uma%20cotação%20de%20seguro."><svg class="wpp-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2a9.96 9.96 0 0 0-8.49 15.18L2.5 21.5l4.46-1.17A9.96 9.96 0 1 0 12 2Zm0 18.2c-1.55 0-3.06-.41-4.38-1.18l-.33-.2-2.65.7.7-2.56-.22-.35A8.2 8.2 0 1 1 12 20.2Zm4.77-5.7c-.2.56-1.18 1.08-1.62 1.15-.41.07-.93.1-1.5-.09-.35-.11-.79-.25-1.36-.5-2.4-1.03-3.95-3.42-4.07-3.58-.12-.16-.97-1.3-.97-2.48 0-1.18.62-1.76.84-2 .22-.24.48-.3.65-.3h.47c.15 0 .35-.05.55.42.2.48.67 1.65.73 1.77.06.12.1.25.02.41-.08.16-.12.25-.24.39-.12.13-.26.3-.37.41-.12.12-.24.24-.1.47.14.24.63 1.03 1.35 1.67.93.83 1.71 1.08 1.95 1.2.24.12.38.1.52-.06.14-.16.6-.7.76-.94.16-.24.32-.2.54-.12.22.08 1.39.66 1.63.77.24.12.4.18.45.28.06.1.06.58-.14 1.14Z"/></svg>Iniciar conversa</a></span>
+            </div>
+          </div>
+
+          <div class="contact-item">
+            <div class="contact-badge">✉</div>
+            <div>
+              <strong>E-mail</strong>
+              <span><a href="mailto:adm@amparaseg.com.br">adm@amparaseg.com.br</a></span>
+            </div>
+          </div>
+
+          <div class="contact-item">
+            <div class="contact-badge">⌖</div>
+            <div>
+              <strong>Endereço</strong>
+              <span>Rua Padre Cícero Coutinho, 17 - Tiradentes<br>Juazeiro do Norte - CE, CEP 63030-815</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="contact-card">
+          <h3>Enviar uma mensagem</h3>
+          <p>Sem formulário com servidor: a mensagem vai direto no WhatsApp para não perder tempo.</p>
+          <form class="form-grid" id="contactForm">
+            <label>
+              Nome
+              <input id="cNome" name="nome" autocomplete="name" placeholder="Seu nome" required>
+            </label>
+            <label>
+              Mensagem
+              <textarea id="cMsg" name="mensagem" placeholder="Escreva sua dúvida ou o tipo de seguro que procura" required></textarea>
+            </label>
+            <button class="submit-btn" type="submit"><svg class="wpp-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2a9.96 9.96 0 0 0-8.49 15.18L2.5 21.5l4.46-1.17A9.96 9.96 0 1 0 12 2Zm0 18.2c-1.55 0-3.06-.41-4.38-1.18l-.33-.2-2.65.7.7-2.56-.22-.35A8.2 8.2 0 1 1 12 20.2Zm4.77-5.7c-.2.56-1.18 1.08-1.62 1.15-.41.07-.93.1-1.5-.09-.35-.11-.79-.25-1.36-.5-2.4-1.03-3.95-3.42-4.07-3.58-.12-.16-.97-1.3-.97-2.48 0-1.18.62-1.76.84-2 .22-.24.48-.3.65-.3h.47c.15 0 .35-.05.55.42.2.48.67 1.65.73 1.77.06.12.1.25.02.41-.08.16-.12.25-.24.39-.12.13-.26.3-.37.41-.12.12-.24.24-.1.47.14.24.63 1.03 1.35 1.67.93.83 1.71 1.08 1.95 1.2.24.12.38.1.52-.06.14-.16.6-.7.76-.94.16-.24.32-.2.54-.12.22.08 1.39.66 1.63.77.24.12.4.18.45.28.06.1.06.58-.14 1.14Z"/></svg>Enviar no WhatsApp</button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="footer-grid">
+        <div>
+          <p>Nosso propósito é acolher, entender e proteger o que mais importa para você.</p>
+          <div class="socials">f ◎ in ☏</div>
+        </div>
+
+        <div class="footer-col">
+          <h4>Navegação</h4>
+          <ul><li><a href="#inicio">Início</a></li><li><a href="#seguros">Seguros</a></li><li><a href="#seguros">Empresas</a></li><li><a href="#cotacao">Cotação</a></li><li><a href="#sobre">Sobre Nós</a></li><li><a href="#contato">Contato</a></li></ul>
+        </div>
+        <div class="footer-col">
+          <h4>Seguros</h4>
+          <ul><li><a href="#cotacao">Seguro Auto</a></li><li><a href="#cotacao">Seguro Residencial</a></li><li><a href="#cotacao">Seguro Saúde</a></li><li><a href="#cotacao">Seguro de Vida</a></li><li><a href="#cotacao">Seguro Empresarial</a></li><li><a href="#cotacao">Outros Seguros</a></li></ul>
+        </div>
+        <div class="footer-col">
+          <h4>Atendimento</h4>
+          <ul><li><a class="wpp-link" target="_blank" rel="noopener" href="https://wa.me/558881155384?text=Olá,%20gostaria%20de%20fazer%20uma%20cotação%20de%20seguro."><svg class="wpp-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2a9.96 9.96 0 0 0-8.49 15.18L2.5 21.5l4.46-1.17A9.96 9.96 0 1 0 12 2Zm0 18.2c-1.55 0-3.06-.41-4.38-1.18l-.33-.2-2.65.7.7-2.56-.22-.35A8.2 8.2 0 1 1 12 20.2Zm4.77-5.7c-.2.56-1.18 1.08-1.62 1.15-.41.07-.93.1-1.5-.09-.35-.11-.79-.25-1.36-.5-2.4-1.03-3.95-3.42-4.07-3.58-.12-.16-.97-1.3-.97-2.48 0-1.18.62-1.76.84-2 .22-.24.48-.3.65-.3h.47c.15 0 .35-.05.55.42.2.48.67 1.65.73 1.77.06.12.1.25.02.41-.08.16-.12.25-.24.39-.12.13-.26.3-.37.41-.12.12-.24.24-.1.47.14.24.63 1.03 1.35 1.67.93.83 1.71 1.08 1.95 1.2.24.12.38.1.52-.06.14-.16.6-.7.76-.94.16-.24.32-.2.54-.12.22.08 1.39.66 1.63.77.24.12.4.18.45.28.06.1.06.58-.14 1.14Z"/></svg>(88) 8115-5384</a></li><li><a href="mailto:adm@amparaseg.com.br">✉ adm@amparaseg.com.br</a></li><li>◷ Segunda a Sexta<br>08h às 18h</li><li>⌖ Juazeiro do Norte - CE</li></ul>
+        </div>
+        <div class="footer-col">
+          <h4>Fale conosco</h4>
+          <p>Vamos encontrar o seguro ideal para você!</p>
+          <a class="small-cta wpp-link" target="_blank" rel="noopener" href="https://wa.me/558881155384?text=Olá,%20gostaria%20de%20fazer%20uma%20cotação%20de%20seguro."><svg class="wpp-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2a9.96 9.96 0 0 0-8.49 15.18L2.5 21.5l4.46-1.17A9.96 9.96 0 1 0 12 2Zm0 18.2c-1.55 0-3.06-.41-4.38-1.18l-.33-.2-2.65.7.7-2.56-.22-.35A8.2 8.2 0 1 1 12 20.2Zm4.77-5.7c-.2.56-1.18 1.08-1.62 1.15-.41.07-.93.1-1.5-.09-.35-.11-.79-.25-1.36-.5-2.4-1.03-3.95-3.42-4.07-3.58-.12 -.16-.97-1.3-.97-2.48 0-1.18.62-1.76.84-2 .22-.24.48-.3.65-.3h.47c.15 0 .35-.05.55.42.2.48.67 1.65.73 1.77.06.12.1.25.02.41-.08.16-.12.25-.24.39-.12.13-.26.3-.37.41-.12.12-.24.24-.1.47.14.24.63 1.03 1.35 1.67.93.83 1.71 1.08 1.95 1.2.24.12.38.1.52-.06.14-.16.6-.7.76-.94.16-.24.32-.2.54-.12.22.08 1.39.66 1.63.77.24.12.4.18.45.28.06.1.06.58-.14 1.14Z"/></svg>Solicitar Cotação</a>
+        </div>
+      </div>
+      <div class="copyright">© 2026 AmparaSeg Corretora de Seguros. Todos os direitos reservados.</div>
+    </footer>
+
+    <a class="float-quote" href="#cotacao" aria-label="Solicite sua cotação">Solicite sua cotação</a>
+    <a class="float-wpp" aria-label="Falar no WhatsApp" target="_blank" rel="noopener" href="https://wa.me/558881155384?text=Olá,%20gostaria%20de%20fazer%20uma%20cotação%20de%20seguro.">
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <path d="M12 2a9.96 9.96 0 0 0-8.49 15.18L2.5 21.5l4.46-1.17A9.96 9.96 0 1 0 12 2Zm0 18.2c-1.55 0-3.06-.41-4.38-1.18l-.33-.2-2.65.7.7-2.56-.22-.35A8.2 8.2 0 1 1 12 20.2Zm4.77-5.7c-.2.56-1.18 1.08-1.62 1.15-.41.07-.93.1-1.5-.09-.35-.11-.79-.25-1.36-.5-2.4-1.03-3.95-3.42-4.07-3.58-.12-.16-.97-1.3-.97-2.48 0-1.18.62-1.76.84-2 .22-.24.48-.3.65-.3h.47c.15 0 .35-.05.55.42.2.48.67 1.65.73 1.77.06.12.1.25.02.41-.08.16-.12.25-.24.39-.12.13-.26.3-.37.41-.12.12-.24.24-.1.47.14.24.63 1.03 1.35 1.67.93.83 1.71 1.08 1.95 1.2.24.12.38.1.52-.06.14-.16.6-.7.76-.94.16-.24.32-.2.54-.12.22.08 1.39.66 1.63.77.24.12.4.18.45.28.06.1.06.58-.14 1.14Z"/>
+      </svg>
+    </a>
+  </div>
+  <script>
+    (function () {
+      var phone = "558881155384";
+
+      function buildWhatsAppUrl(message) {
+        return "https://wa.me/" + phone + "?text=" + encodeURIComponent(message);
+      }
+
+      function normalizePhone(value) {
+        return (value || "").replace(/[^\d]/g, "");
+      }
+
+      var mobileNav = document.querySelector(".mobile-nav");
+      if (mobileNav) {
+        mobileNav.addEventListener("click", function (event) {
+          var target = event.target;
+          if (target && target.tagName === "A") {
+            mobileNav.removeAttribute("open");
+          }
+        });
+      }
+
+      var quoteForm = document.getElementById("quoteForm");
+      if (quoteForm) {
+        quoteForm.addEventListener("submit", function (event) {
+          event.preventDefault();
+
+          var nome = (document.getElementById("qNome").value || "").trim();
+          var whats = normalizePhone(document.getElementById("qWhats").value);
+          var tipo = (document.getElementById("qTipo").value || "").trim();
+          var msg = (document.getElementById("qMsg").value || "").trim();
+
+          var lines = [
+            "Olá! Gostaria de solicitar uma cotação de seguro.",
+            "Nome: " + nome,
+            "Meu WhatsApp: " + (whats ? whats : "não informado"),
+            "Tipo: " + tipo
+          ];
+          if (msg) lines.push("Detalhes: " + msg);
+
+          window.open(buildWhatsAppUrl(lines.join("\n")), "_blank", "noopener");
+        });
+      }
+
+      var contactForm = document.getElementById("contactForm");
+      if (contactForm) {
+        contactForm.addEventListener("submit", function (event) {
+          event.preventDefault();
+
+          var nome = (document.getElementById("cNome").value || "").trim();
+          var msg = (document.getElementById("cMsg").value || "").trim();
+
+          var lines = ["Olá! Meu nome é " + nome + ".", msg];
+          window.open(buildWhatsAppUrl(lines.join("\n")), "_blank", "noopener");
+        });
+      }
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Seguro Auto | AmparaSeg</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20viewBox%3D%270%200%2064%2064%27%3E%3Cpath%20fill%3D%27%232c967e%27%20d%3D%27M32%204%20L54%2012%20V30%20C54%2044%2044%2056%2032%2060%20C20%2056%2010%2044%2010%2030%20V12%20Z%27/%3E%3Cpath%20fill%3D%27%23ffffff%27%20d%3D%27M32%2047%20s-15-9.35-15-20.25%20C17%2020.4%2021.4%2016%2026.75%2016%20c2.9%200%205.6%201.4%207.25%203.6%20C35.65%2017.4%2038.35%2016%2041.25%2016%20C46.6%2016%2051%2020.4%2051%2026.75%20C51%2037.65%2036%2047%2032%2047%20z%27/%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Montserrat', Arial, sans-serif; color: #08394a; background: #f4f8f8; }
+    a { color: inherit; text-decoration: none; }
+    .page { min-height: 100vh; }
+    .header {
+      min-height: 72px;
+      background: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      box-shadow: 0 2px 16px rgba(0, 0, 0, 0.05);
+      position: sticky;
+      top: 0;
+      z-index: 20;
+    }
+    .brand-logo-wrap { width: 210px; height: 56px; overflow: hidden; display: block; }
+    .brand-logo-img { width: 100%; height: 100%; object-fit: cover; transform: scale(1.15); transform-origin: center; filter: drop-shadow(0 12px 22px rgba(0,0,0,0.12)); }
+    .header-actions { display: inline-flex; align-items: center; gap: 10px; }
+    .back-link { font-weight: 900; font-size: 13px; color: #08394a; border: 1px solid rgba(8, 57, 74, 0.14); border-radius: 12px; padding: 10px 12px; background: #ffffff; }
+    .wpp-link { display: inline-flex; align-items: center; gap: 9px; }
+    .wpp-icon { width: 16px; height: 16px; display: block; fill: currentColor; }
+    .whatsapp-btn {
+      height: 42px;
+      padding: 0 16px;
+      font-size: 13px;
+      font-weight: 900;
+      background: #2c967e;
+      color: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 10px 20px rgba(44, 150, 126, .18);
+    }
+    .container { max-width: 1120px; margin: 0 auto; padding: 28px 18px 60px; }
+    .hero {
+      display: grid;
+      grid-template-columns: 1.08fr .92fr;
+      gap: 22px;
+      align-items: center;
+      background: #ffffff;
+      border-radius: 16px;
+      box-shadow: 0 12px 28px rgba(18, 70, 79, .10);
+      border: 1px solid rgba(8, 57, 74, 0.08);
+      overflow: hidden;
+    }
+    .hero-copy { padding: 26px 26px 28px; }
+    .kicker { font-size: 11px; letter-spacing: 7px; color: #2d987f; text-transform: uppercase; font-weight: 900; margin-bottom: 10px; }
+    h1 { font-size: 36px; line-height: 1.08; letter-spacing: -1px; font-weight: 900; color: #06384b; }
+    .subtitle { margin-top: 12px; font-size: 15px; line-height: 1.65; color: #314d59; font-weight: 500; max-width: 56ch; }
+    .cta-row { margin-top: 18px; display: flex; flex-wrap: wrap; gap: 10px; }
+    .primary-btn {
+      height: 46px;
+      padding: 0 18px;
+      border-radius: 12px;
+      background: #006178;
+      color: #ffffff;
+      font-weight: 900;
+      font-size: 13px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 10px 22px rgba(0, 97, 120, .18);
+    }
+    .hero-media { min-height: 260px; background: url('https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80') center / cover no-repeat; }
+    .grid { margin-top: 18px; display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    .card {
+      background: #ffffff;
+      border-radius: 16px;
+      box-shadow: 0 12px 28px rgba(18, 70, 79, .10);
+      border: 1px solid rgba(8, 57, 74, 0.08);
+      padding: 18px 18px;
+    }
+    .card h2 { font-size: 16px; font-weight: 900; color: #08394a; margin-bottom: 10px; }
+    .card p { font-size: 13px; line-height: 1.65; color: #314d59; font-weight: 500; }
+    .list { margin-top: 10px; display: grid; gap: 8px; }
+    .list li { list-style: none; font-size: 13px; line-height: 1.5; color: #0a3548; font-weight: 700; display: flex; gap: 10px; }
+    .list li::before { content: "✓"; width: 22px; height: 22px; border-radius: 8px; background: rgba(44, 150, 126, .12); border: 1px solid rgba(44, 150, 126, .25); color: #2c967e; display: grid; place-items: center; font-weight: 900; flex: 0 0 22px; margin-top: 1px; }
+    details { margin-top: 12px; }
+    summary { cursor: pointer; font-size: 13px; font-weight: 900; color: #006178; }
+    .gallery { margin-top: 18px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    .gallery img { width: 100%; height: 170px; border-radius: 16px; object-fit: cover; box-shadow: 0 12px 28px rgba(18, 70, 79, .10); }
+    .footer { margin-top: 22px; padding: 18px 6px 0; color: #425d66; font-size: 12px; font-weight: 600; }
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; }
+      .hero-media { min-height: 220px; }
+      .grid { grid-template-columns: 1fr; }
+      .gallery { grid-template-columns: 1fr; }
+      .gallery img { height: 190px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="header">
+      <a class="brand-logo-wrap" href="../index.html#inicio" aria-label="AmparaSeg - Início">
+        <img class="brand-logo-img" src="../imagem/AmparaSeg_idvisual_atual-2026-removebg-preview.png" alt="AmparaSeg">
+      </a>
+      <div class="header-actions">
+        <a class="back-link" href="../index.html#seguros">Voltar</a>
+        <a class="whatsapp-btn wpp-link" target="_blank" rel="noopener" href="https://wa.me/558881155384?text=Olá,%20gostaria%20de%20fazer%20uma%20cotação%20de%20seguro%20auto.">
+          <svg class="wpp-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2a9.96 9.96 0 0 0-8.49 15.18L2.5 21.5l4.46-1.17A9.96 9.96 0 1 0 12 2Zm0 18.2c-1.55 0-3.06-.41-4.38-1.18l-.33-.2-2.65.7.7-2.56-.22-.35A8.2 8.2 0 1 1 12 20.2Zm4.77-5.7c-.2.56-1.18 1.08-1.62 1.15-.41.07-.93.1-1.5-.09-.35-.11-.79-.25-1.36-.5-2.4-1.03-3.95-3.42-4.07-3.58-.12-.16-.97-1.3-.97-2.48 0-1.18.62-1.76.84-2 .22-.24.48-.3.65-.3h.47c.15 0 .35-.05.55.42.2.48.67 1.65.73 1.77.06.12.1.25.02.41-.08.16-.12.25-.24.39-.12.13-.26.3-.37.41-.12.12-.24.24-.1.47.14.24.63 1.03 1.35 1.67.93.83 1.71 1.08 1.95 1.2.24.12.38.1.52-.06.14-.16.6-.7.76-.94.16-.24.32-.2.54-.12.22.08 1.39.66 1.63.77.24.12.4.18.45.28.06.1.06.58-.14 1.14Z"/></svg>
+          WhatsApp
+        </a>
+      </div>
+    </header>
+
+    <main class="container">
+      <section class="hero">
+        <div class="hero-copy">
+          <div class="kicker">Seguro Auto</div>
+          <h1>Você dirige. A gente cuida.</h1>
+          <p class="subtitle">Imprevistos acontecem. Com o Seguro Auto certo, você segue com mais tranquilidade, proteção e assistência quando precisar.</p>
+          <div class="cta-row">
+            <a class="primary-btn" href="../index.html#cotacao">Solicitar cotação</a>
+            <a class="whatsapp-btn wpp-link" target="_blank" rel="noopener" href="https://wa.me/558881155384?text=Olá,%20quero%20fazer%20uma%20cotação%20de%20seguro%20auto.">
+              <svg class="wpp-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2a9.96 9.96 0 0 0-8.49 15.18L2.5 21.5l4.46-1.17A9.96 9.96 0 1 0 12 2Zm0 18.2c-1.55 0-3.06-.41-4.38-1.18l-.33-.2-2.65.7.7-2.56-.22-.35A8.2 8.2 0 1 1 12 20.2Zm4.77-5.7c-.2.56-1.18 1.08-1.62 1.15-.41.07-.93.1-1.5-.09-.35-.11-.79-.25-1.36-.5-2.4-1.03-3.95-3.42-4.07-3.58-.12-.16-.97-1.3-.97-2.48 0-1.18.62-1.76.84-2 .22-.24.48-.3.65-.3h.47c.15 0 .35-.05.55.42.2.48.67 1.65.73 1.77.06.12.1.25.02.41-.08.16-.12.25-.24.39-.12.13-.26.3-.37.41-.12.12-.24.24-.1.47.14.24.63 1.03 1.35 1.67.93.83 1.71 1.08 1.95 1.2.24.12.38.1.52-.06.14-.16.6-.7.76-.94.16-.24.32-.2.54-.12.22.08 1.39.66 1.63.77.24.12.4.18.45.28.06.1.06.58-.14 1.14Z"/></svg>
+              Falar agora
+            </a>
+          </div>
+        </div>
+        <div class="hero-media" role="img" aria-label="Carro em destaque"></div>
+      </section>
+
+      <section class="grid" aria-label="Detalhes do Seguro Auto">
+        <div class="card">
+          <h2>O que você protege</h2>
+          <p>Você pode montar uma proteção do seu jeito, com coberturas essenciais e adicionais para caber no seu momento.</p>
+          <ul class="list">
+            <li>Colisão, incêndio e roubo/furto</li>
+            <li>Danos a terceiros (RCF-V)</li>
+            <li>Vidros, faróis e retrovisores</li>
+            <li>Carro reserva (opcional)</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h2>Assistências</h2>
+          <p>Quando dá algum aperto, você não fica sozinho. Algumas assistências comuns:</p>
+          <ul class="list">
+            <li>Guincho 24h</li>
+            <li>Pane elétrica/mecânica</li>
+            <li>Troca de pneu</li>
+            <li>Chaveiro</li>
+            <li>Pane seca</li>
+          </ul>
+        </div>
+      </section>
+
+      <div class="footer">
+        <a class="back-link" href="../index.html#cotacao">Ir para cotação</a>
+      </div>
+    </main>
+  </div>
+</body>
+</html>
